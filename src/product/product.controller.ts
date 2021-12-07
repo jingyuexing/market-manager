@@ -1,7 +1,7 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { IProduct } from 'src/interface/product.interface';
-import { ResponseConfig } from 'src/Response/ResponseConfig';
+import { IResponse, ResponseConfig } from 'src/Response/ResponseConfig';
 import { ProductService } from './product.service';
 
 @ApiTags("商品API")
@@ -11,12 +11,16 @@ export class ProductController {
     
 
     @Get('search/:id')
-    search(@Param('id') id:number){
-        return this.product.search(id);
+    search(@Param('id') id:number,@Query('limit') limit:number,@Query('page') page:number):IResponse{
+        let res = new ResponseConfig();
+        res.status = 200;
+        res.message = "succeed";
+        res.data = this.product.search(id,limit,page);
+        return res;
     }
 
     @Post("new")
-    update(@Body() productData:IProduct){
+    update(@Body() productData:IProduct):IResponse{
         let res = new ResponseConfig();
         res.status = 200;
         res.message = "succeed";

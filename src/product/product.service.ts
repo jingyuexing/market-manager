@@ -9,9 +9,11 @@ import { ProductEntity } from './product.entity';
 export class ProductService {
     constructor(@InjectRepository(ProductEntity) private readonly product:Repository<ProductEntity>){}
     newProduct(productData: IProduct) {
-        return {};
+        let data = {};
+        return data;
     }
-    search(id:number){
-        return {};
+    search(id:number,limit:number,page:number){
+        let data = {};
+        return data;
     }
 }
